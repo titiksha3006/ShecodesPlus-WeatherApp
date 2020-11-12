@@ -108,10 +108,10 @@ function displayCurrentLocationTemp(response) {
   ).innerHTML = `Pressure : ${response.data.main.pressure}`;
   document.querySelector(
     "#humidity"
-  ).innerHTML = `Humidity : ${response.data.main.humidity}`;
+  ).innerHTML = `Humidity : ${response.data.main.humidity}%`;
   document.querySelector(
     "#wind"
-  ).innerHTML = `Wind : ${response.data.wind.speed}`;
+  ).innerHTML = `Wind : ${response.data.wind.speed}km/h`;
   document.querySelector(".description").innerHTML =
     response.data.weather[0].description;
 
