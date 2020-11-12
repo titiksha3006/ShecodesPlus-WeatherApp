@@ -55,6 +55,7 @@ a {
   font-weight: normal;
   font-size: 20px;
   margin-left: 10px;
+  text-transform: capitalize;
 }
 .container {
   max-width: 900px;
