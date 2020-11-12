@@ -31,9 +31,39 @@ let date = now.getDate();
 let dayTime = document.querySelector(".today");
 console.log(dayTime);
 function currentTime() {
-  dayTime.innerHTML = `${month},${date}<br />${day},${hours}:${minutes}:${seconds}`;
+    if (hours < 10) 
+    {
+        hours = `0${hours}`;
+    }
+    if (minutes < 10)
+    {
+        minutes = `0${minutes}`
+    }
+  dayTime.innerHTML = `Last updated on : ${month},${date}<br />${day},${hours}:${minutes}:${seconds}`;
 }
 currentTime();
+
+
+
+
+
+//display page weather app
+
+function displayTemp(response) {
+let apiKey = "5a1da134326be9ff9057540dba860d50";
+let city = "New York";
+let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  let temp = Math.round(response.data.main.temp);
+  console.log(temp);
+  document.querySelector("#degree").innerHTML = temp ;
+  let head = document.querySelector("h1");
+  head.innerHTML = `${city}`;
+
+}
+
+axios.get(apiUrl).then(displayTemp);
+
+// for searching from the form 
 
 let btn = document.querySelector("#signup-form");
 let degree = document.querySelector("#degree");
@@ -94,6 +124,9 @@ function replace(event) {
   showCity(city);
 }
 btn.addEventListener("submit", replace);
+
+
+// for displaying current location 
 
 function displayCurrentLocationTemp(response) {
   document.querySelector("#search-input").innerHTML = response.data.name;
