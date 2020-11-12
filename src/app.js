@@ -48,6 +48,7 @@ currentTime();
 
 
 //display page weather app
+
 let apiKey = "5a1da134326be9ff9057540dba860d50";
 let city = "New York";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
@@ -67,9 +68,12 @@ document.querySelector(
   document.querySelector(
     "#humidity"
   ).innerHTML = `Humidity : ${response.data.main.humidity}%`;
+
+  let wind = Math.round(response.data.wind.speed);
   document.querySelector(
     "#wind"
-  ).innerHTML = `Wind : ${response.data.wind.speed} km/h`;
+  ).innerHTML = `Wind : ${wind} km/h`;
+
   document.querySelector(".description").innerHTML =
     response.data.weather[0].description;
 
@@ -116,9 +120,12 @@ icon.setAttribute("alt",response.data.weather[0].description);
   document.querySelector(
     "#humidity"
   ).innerHTML = `Humidity : ${response.data.main.humidity}%`;
+
+   let wind = Math.round(response.data.wind.speed);
   document.querySelector(
     "#wind"
-  ).innerHTML = `Wind : ${response.data.wind.speed} km/h`;
+  ).innerHTML = `Wind : ${wind} km/h`;
+
   document.querySelector(".description").innerHTML =
     response.data.weather[0].description;
 
@@ -171,9 +178,12 @@ icon.setAttribute("alt",response.data.weather[0].description);
   document.querySelector(
     "#humidity"
   ).innerHTML = `Humidity : ${response.data.main.humidity}%`;
+
+  let wind = Math.round(response.data.wind.speed);
   document.querySelector(
     "#wind"
-  ).innerHTML = `Wind : ${response.data.wind.speed} km/h`;
+  ).innerHTML = `Wind : ${wind} km/h`;
+
   document.querySelector(".description").innerHTML =
     response.data.weather[0].description;
 
