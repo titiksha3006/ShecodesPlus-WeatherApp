@@ -39,7 +39,7 @@ function currentTime() {
     {
         minutes = `0${minutes}`
     }
-  dayTime.innerHTML = `Last updated on : ${month},${date}<br />${day},${hours}:${minutes}:${seconds}`;
+  dayTime.innerHTML = `Last updated: ${month},${date}<br />${day},${hours}:${minutes}`;
 }
 currentTime();
 
@@ -48,18 +48,41 @@ currentTime();
 
 
 //display page weather app
-
-function displayTemp(response) {
-    
 let apiKey = "5a1da134326be9ff9057540dba860d50";
 let city = "New York";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+function displayTemp(response) {
+
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
   document.querySelector("#degree").innerHTML = temp ;
-  let head = document.querySelector("h1");
+  let head = document.querySelector("#city");
   head.innerHTML = `${city}`;
+document.querySelector(
+    "#pressure"
+  ).innerHTML = `Pressure : ${response.data.main.pressure}`;
+  document.querySelector(
+    "#humidity"
+  ).innerHTML = `Humidity : ${response.data.main.humidity}%`;
+  document.querySelector(
+    "#wind"
+  ).innerHTML = `Wind : ${response.data.wind.speed}km/h`;
+  document.querySelector(".description").innerHTML =
+    response.data.weather[0].description;
 
+  let fahrenheitDegree = (temp * 9) / 5 + 32;
+  fahrenheitDegree = Math.round(fahrenheitDegree);
+  let cel = Math.round(((fahrenheitDegree - 32) * 5) / 9);
+  console.log(fahrenheitDegree);
+  console.log(cel);
+  function showFahrenheit() {
+    degree.innerHTML = fahrenheitDegree;
+  }
+  fahrenheit.addEventListener("click", showFahrenheit);
+  function showCelsius() {
+    degree.innerHTML = cel;
+  }
+  celsius.addEventListener("click", showCelsius);
 }
 
 axios.get(apiUrl).then(displayTemp);
