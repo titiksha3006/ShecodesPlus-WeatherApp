@@ -51,6 +51,7 @@ currentTime();
 let apiKey = "5a1da134326be9ff9057540dba860d50";
 let city = "New York";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+let icon = document.querySelector("#icon");
 function displayTemp(response) {
 
   let temp = Math.round(response.data.main.temp);
@@ -58,6 +59,8 @@ function displayTemp(response) {
   document.querySelector("#degree").innerHTML = temp ;
   let head = document.querySelector("#city");
   head.innerHTML = `${city}`;
+  icon.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+  icon.setAttribute("alt",response.data.weather[0].description);
 document.querySelector(
     "#pressure"
   ).innerHTML = `Pressure : ${response.data.main.pressure}`;
@@ -105,7 +108,8 @@ function showTemp(response) {
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
   degree.innerHTML = temp;
-
+icon.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+icon.setAttribute("alt",response.data.weather[0].description);
   document.querySelector(
     "#pressure"
   ).innerHTML = `Pressure : ${response.data.main.pressure}`;
@@ -159,7 +163,8 @@ function displayCurrentLocationTemp(response) {
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
   degree.innerHTML = temp;
-
+icon.setAttribute("src",`http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`);
+icon.setAttribute("alt",response.data.weather[0].description);
   document.querySelector(
     "#pressure"
   ).innerHTML = `Pressure : ${response.data.main.pressure}`;
