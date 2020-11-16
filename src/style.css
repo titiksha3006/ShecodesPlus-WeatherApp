@@ -93,17 +93,13 @@ ul {
 hr {
   border: 0.5px solid #0f3057;
 }
-.card {
-  border: 1px solid #0f3057;
-  border-radius: 15px;
+.weather {
   margin: 5px auto;
   padding: 2px auto;
   text-align: center;
   color: #0f3057;
-  background-image: linear-gradient(to top, #dfe9f3 0%, white 100%);
-  max-width: 100px;
 }
-.card:hover {
+.weather-forecast:hover {
   background-image: linear-gradient(-225deg, #e3fdf5 0%, #ffe6fa 100%);
 }
 

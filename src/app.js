@@ -1,4 +1,9 @@
-let now = new Date();
+
+let dayTime = document.querySelector(".today");
+console.log(dayTime);
+function currentTime() {
+
+  let now = new Date();
 let days = [
   "Sunday",
   "Monday",
@@ -28,9 +33,7 @@ let months = [
 ];
 let month = months[now.getMonth()];
 let date = now.getDate();
-let dayTime = document.querySelector(".today");
-console.log(dayTime);
-function currentTime() {
+
     if (hours < 10) 
     {
         hours = `0${hours}`;
@@ -39,9 +42,31 @@ function currentTime() {
     {
         minutes = `0${minutes}`
     }
-  dayTime.innerHTML = `Last updated: ${month},${date}<br />${day},${hours}:${minutes}`;
+  dayTime.innerHTML = `Last updated: ${month},${date}<br />${day},${hours}:${minutes} CET`;
+ // return `Last updated: ${month},${date}<br />${day},${hours}:${minutes}`;
 }
 currentTime();
+
+
+
+
+function formatHours(timestamp)
+{
+
+  let now = new Date(timestamp);
+  let hours = now.getHours();
+let minutes = now.getMinutes();
+    if (hours < 10) 
+    {
+        hours = `0${hours}`;
+    }
+    if (minutes < 10)
+    {
+        minutes = `0${minutes}`
+    }
+
+    return `${hours}:${minutes}`;
+}
 
 
 
@@ -53,7 +78,9 @@ let apiKey = "5a1da134326be9ff9057540dba860d50";
 let city = "New York";
 let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 let icon = document.querySelector("#icon");
+
 function displayTemp(response) {
+
 
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
@@ -90,6 +117,12 @@ document.querySelector(
     degree.innerHTML = cel;
   }
   celsius.addEventListener("click", showCelsius);
+
+//dayTime.innerHTML=currentTime(response.data.dt * 1000);
+
+let apiForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+axios.get(apiForecastUrl).then(weatherForecast);
+  
 }
 
 axios.get(apiUrl).then(displayTemp);
@@ -107,7 +140,7 @@ let fahrenheit = document.querySelector("#farenheit");
 function showTemp(response) {
   console.log(response.data);
   document.querySelector("#search-input").innerHTML = response.data.name;
-  let head = document.querySelector("h1");
+  let head = document.querySelector("#city");
   head.innerHTML = response.data.name;
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
@@ -142,6 +175,11 @@ icon.setAttribute("alt",response.data.weather[0].description);
     degree.innerHTML = cel;
   }
   celsius.addEventListener("click", showCelsius);
+
+  //dayTime.innerHTML=currentTime(response.data.dt * 1000);
+
+  let apiForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${response.data.name}&appid=${apiKey}&units=metric`;
+axios.get(apiForecastUrl).then(weatherForecast);
 }
 function showCity(city) {
   let apiKey = "5a1da134326be9ff9057540dba860d50";
@@ -165,7 +203,7 @@ btn.addEventListener("submit", replace);
 
 function displayCurrentLocationTemp(response) {
   document.querySelector("#search-input").innerHTML = response.data.name;
-  let head = document.querySelector("h1");
+  let head = document.querySelector("#city");
   head.innerHTML = response.data.name;
   let temp = Math.round(response.data.main.temp);
   console.log(temp);
@@ -200,6 +238,12 @@ icon.setAttribute("alt",response.data.weather[0].description);
     degree.innerHTML = cel;
   }
   celsius.addEventListener("click", showCelsius);
+
+  //dayTime.innerHTML=currentTime(response.data.dt * 1000);
+
+ let apiForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${response.data.name}&appid=${apiKey}&units=metric`;
+axios.get(apiForecastUrl).then(weatherForecast);
+  
 }
 function searchCurrentLocation(position) {
   let apiKey = "5a1da134326be9ff9057540dba860d50";
@@ -212,3 +256,42 @@ function getCurrentLocation(event) {
 }
 let currentLocation = document.querySelector(".currentLocation");
 currentLocation.addEventListener("click", getCurrentLocation);
+
+
+//for weather forecast
+
+
+
+//let apiForecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
+
+function weatherForecast(response)
+{
+
+  
+  
+  console.log(response.data);
+  console.log(response.data.list[0]);
+
+
+  
+
+
+  let forecastElement = document.querySelector("#forecast");
+  forecastElement.innerHTML = null;
+
+  for ( let index = 0; index < 6 ; index++){
+
+    let forecast = response.data.list[index];
+
+   
+  forecastElement.innerHTML += `<div class="col-2 weather-forecast">
+                        ${formatHours(forecast.dt * 1000)}<br /><span id="deg1">${Math.round(forecast.main.temp)}</span>°C
+                        <br />
+                        <img src="http://openweathermap.org/img/wn/${forecast.weather[0].icon}@2x.png" width="60" />
+                    </div>`;
+
+  }
+  
+}
+
+//axios.get(apiForecastUrl).then(weatherForecast);
