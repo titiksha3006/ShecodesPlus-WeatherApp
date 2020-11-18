@@ -58,7 +58,7 @@ a {
   text-transform: capitalize;
 }
 .container {
-  max-width: 900px;
+  max-width: 60%;
   padding: 15px 30px;
   border: 1px solid #212121;
   border-radius: 10px;
